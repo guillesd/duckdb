@@ -97,7 +97,7 @@ string PragmaShowTablesExpanded() {
 	FROM duckdb_tables t
 	JOIN duckdb_columns c
 	USING (table_oid)
-	GROUP BY database, schema, name
+	GROUP BY database, schema, name, t.table_oid
 
 	UNION ALL
 
@@ -111,7 +111,7 @@ string PragmaShowTablesExpanded() {
 	FROM duckdb_views v
 	JOIN duckdb_columns c
 	ON (v.view_oid=c.table_oid)
-	GROUP BY database, schema, name
+	GROUP BY database, schema, name, v.view_oid
 
 	ORDER BY database, schema, name
 	)";
